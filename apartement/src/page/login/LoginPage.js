@@ -1,18 +1,26 @@
-import { useState } from "react";
-import { Card, Form, Row, Col, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { login, loginUser } from "../Store/auth-slice";
+import { useEffect, useState } from "react";
+import { Card, Form, Row, Col, Button, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import userSlice, { login, loginUser } from "../../Store/auth-slice";
 
 export default function LoginPage(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const { token, error } = useSelector((store) => store[userSlice.name]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginUser({ username: username, password: password }));
   };
+  useEffect(() => {
+    if (token !== undefined) {
+      navigate("/home");
+    }
+  }, [navigate, token]);
+
   return (
     <>
       <Card>
@@ -21,6 +29,7 @@ export default function LoginPage(props) {
         </Card.Header>
 
         <Card.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" as={Row}>
               <Form.Label column sm="3">

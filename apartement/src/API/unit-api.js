@@ -1,14 +1,14 @@
-const apartURL = "/login";
+const apartURL = "/units";
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
 };
-
-export async function login(user) {
+export async function fetchUnits() {
   const response = await fetch(apartURL, {
-    headers,
-    method: "POST",
-    body: JSON.stringify(user),
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
   });
   if (response.status < 400) {
     return response.json();
