@@ -25,17 +25,17 @@ function Header() {
 
           <NavbarCollapse>
             <Nav>
-              <Nav.Link as={Link} to="unit" className="text-white">
+              <Nav.Link as={Link} to="/unit" className="text-white">
                 {" "}
                 Apartement Unit
               </Nav.Link>
-              <Nav.Link as={Link} to="residence" className="text-white">
+              <Nav.Link as={Link} to="/residence" className="text-white">
                 {" "}
                 Apartement Residence
               </Nav.Link>
             </Nav>
           </NavbarCollapse>
-          <Button variant="light" as={Link} to="/">
+          <Button variant="light" as={Link} to="/login">
             Log Out
           </Button>
         </Container>
