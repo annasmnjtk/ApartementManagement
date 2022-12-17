@@ -25,11 +25,11 @@ function Header() {
 
           <NavbarCollapse>
             <Nav>
-              <Nav.Link as={Link} to="unit" className="text-white">
+              <Nav.Link as={Link} to="/unit" className="text-white">
                 {" "}
                 Apartement Unit
               </Nav.Link>
-              <Nav.Link as={Link} to="residence" className="text-white">
+              <Nav.Link as={Link} to="/residence" className="text-white">
                 {" "}
                 Apartement Residence
               </Nav.Link>

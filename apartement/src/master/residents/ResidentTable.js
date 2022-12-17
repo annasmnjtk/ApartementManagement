@@ -17,6 +17,7 @@ export default function ResidentTable(props) {
           <th>Marital Status</th>
           <th>Dependents</th>
           <th>Date of Birth</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>

@@ -11,7 +11,7 @@ import { MaritalStatus, Resident, RESIDENT_PAGE } from "./resident-model";
 import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { updateResident } from "../../api/api-config";
+import { updateResident } from "../../API/api-config";
 
 export default function ResidentForm(props) {
   const { selectedResident } = useSelector(

@@ -7,8 +7,9 @@ import MainStore from "./store";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./page/HomePage";
-import UnitPage from "./page/master/units/UnitPage";
-
+import ResidentPage from "./master/residents/ResidentPage";
+import ResidentForm from "./master/residents/ResidentForm";
+import ResidentTable from "./master/residents/ResidentTable";
 function App() {
   return (
     <BrowserRouter>
@@ -25,15 +26,13 @@ function App() {
             ></Route>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/home" element={<HomePage />}></Route>
-            <Route path="/residence" element={<></>}>
-              <Route path="list" element={<></>}></Route>
-              <Route path="form" element={<></>}></Route>
-              <Route path="form/:id" element={<></>}></Route>
-            </Route>
-            <Route path="/unit" element={<UnitPage></UnitPage>}>
-              <Route path="list" element={<></>}></Route>
-              <Route path="form" element={<></>}></Route>
-              <Route path="form/:id" element={<></>}></Route>
+
+            <Route path="/residence" element={<ResidentPage />}>
+              <Route path="" element={<ResidentTable />}></Route>
+              <Route path="form" element={<ResidentForm />}></Route>
+              <Route path="table" element={<ResidentTable />}></Route>
+
+              <Route path="form/:id" element={<ResidentForm />}></Route>
             </Route>
           </Routes>
         </Provider>
