@@ -1,19 +1,17 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import * as ResidentAPI from "../api/api-config";
 
-// export const fetchResidents = createAsyncThunk(
-//   "resident/fetchResident",
-//   async () => {
-//     const residents = await ResidentAPI.getAllResidents();
-
-//     return residents;
-//   }
-// );
+export const fetchResidents = createAsyncThunk(
+  "resident/fetchResident",
+  async () => {
+    const residents = await ResidentAPI.getAllResidents();
+    return residents;
+  }
+);
 
 export const saveResident = createAsyncThunk(
   "resident/saveResident",
   async (resident) => {
-    resident.id = nanoid();
     const residentData = await ResidentAPI.createResident(resident);
 
     return residentData;
@@ -29,11 +27,17 @@ export const updateResident = createAsyncThunk(
   }
 );
 
+export const deleteResident = createAsyncThunk(
+  "resident/deleteResident",
+  async (id) => {
+    await ResidentAPI.deleteResident(id);
+  }
+);
+
 const residentSlice = createSlice({
   name: "resident",
   initialState: {
     residents: [],
-    selectedResident: undefined,
   },
   reducers: {
     loadResidents: (state, action) => {
@@ -59,15 +63,15 @@ const residentSlice = createSlice({
       state.selectedResident = undefined;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(fetchResidents.fulfilled, (state, action) => {
-  //       state.residents = action.payload;
-  //     })
-  //     .addCase(fetchResidents.rejected, (state, action) => {
-  //       state.residents = [];
-  //     });
-  // },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchResidents.fulfilled, (state, action) => {
+        state.residents = action.payload;
+      })
+      .addCase(fetchResidents.rejected, (state, action) => {
+        state.residents = [];
+      });
+  },
 });
 
 const { loadResidents, save, update, selectResident, unselectResident } =

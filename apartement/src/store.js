@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import residentSlice from "./stores/master-residents-slice";
+import userSlice from "./Store/auth-slice";
+import residentSlice from "./Store/master-residents-slice";
 
 const MainStore = configureStore({
   reducer: {
@@ -8,4 +9,4 @@ const MainStore = configureStore({
   },
 });
 
-
+export default MainStore;
