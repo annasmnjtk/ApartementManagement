@@ -3,9 +3,10 @@ import { RESIDENT_PAGE } from "./resident-model";
 import ResidentForm from "./ResidentForm";
 import ResidentTable from "./ResidentTable";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 export default function ResidentPage(props) {
-  const [page, setPage] = useState(RESIDENT_PAGE.LIST);
+  const navigate = useNavigate();
   return (
     <Row className="d-flex justify-content-center align-items-center vh-100">
       <Col sm="8">
@@ -14,31 +15,12 @@ export default function ResidentPage(props) {
             <Card.Title as="h1" className="fs-5">
               Resident
             </Card.Title>
-            {page === RESIDENT_PAGE.LIST && (
-              <Button
-                size="sm"
-                variant="dark"
-                onClick={() => setPage(RESIDENT_PAGE.FORM)}
-              >
-                Add Resident
-              </Button>
-            )}
-            {page === RESIDENT_PAGE.FORM && (
-              <Button
-                size="sm"
-                variant="dark"
-                onClick={() => setPage(RESIDENT_PAGE.LIST)}
-              >
-                Return
-              </Button>
-            )}
+            <Button as={Link} size="sm" variant="dark" to="form">
+              Add Resident
+            </Button>
           </Card.Header>
           <Card.Body>
-            {page === RESIDENT_PAGE.LIST ? (
-              <ResidentTable setPage={setPage} />
-            ) : (
-              <ResidentForm setPage={setPage} />
-            )}
+            <Outlet></Outlet>
           </Card.Body>
         </Card>
       </Col>

@@ -1,12 +1,17 @@
-import { configureStore } from "@reduxjs/toolkit";
-import residentSlice from "./stores/master-residents-slice";
+import { configureStore, applyMiddleware } from "@reduxjs/toolkit";
 import userSlice from "./Store/auth-slice";
-
-const MainStore = configureStore({
-  reducer: {
-    [residentSlice.name]: residentSlice.reducer,
-    [userSlice.name]: userSlice.reducer,
+import residentSlice from "./Store/master-residents-slice";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+const MainStore = configureStore(
+  {
+    reducer: {
+      [residentSlice.name]: residentSlice.reducer,
+      [userSlice.name]: userSlice.reducer,
+    },
   },
-});
+  composedEnhancer
+);
 
 export default MainStore;

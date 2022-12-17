@@ -6,7 +6,7 @@ import residentSlice, {
   selectResident,
   unselectResident,
   update,
-} from "../../stores/master-residents-slice";
+} from "../../Store/master-residents-slice";
 import { MaritalStatus, Resident, RESIDENT_PAGE } from "./resident-model";
 import { useNavigate, useParams } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
@@ -24,15 +24,12 @@ export default function ResidentForm(props) {
     selectedResident?.maritalStatus || ""
   );
   const [dependents, setDependents] = useState(
-    selectedResident?.dependents || 0
+    selectedResident?.dependents || ""
   );
   const [birthDate, setBirthDate] = useState(selectedResident?.birthDate || "");
 
-  // const [form, setForm] = useState(
-  //   selectedResident ? { ...selectedResident } : { ...new Resident() }
-  // );
   const params = useParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const resident = selectResident(params.id);
   const dispatch = useDispatch();
   const { setPage } = props;
@@ -50,7 +47,7 @@ export default function ResidentForm(props) {
         dependents,
         birthDate,
       };
-      dispatch(update(resident));
+      dispatch(updateResident(resident));
     } else {
       const resident = {
         fullname,
@@ -60,11 +57,10 @@ export default function ResidentForm(props) {
         dependents,
         birthDate,
       };
-      dispatch(save(resident));
-      setPage(RESIDENT_PAGE.LIST);
+      dispatch(saveResident(resident));
     }
     dispatch(unselectResident());
-    setPage(RESIDENT_PAGE.LIST);
+    navigate("/residence");
   };
   return (
     <Form onSubmit={handleSubmit}>

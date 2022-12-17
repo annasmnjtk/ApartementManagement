@@ -10,6 +10,7 @@ import HomePage from "./page/HomePage";
 import ResidentPage from "./master/residents/ResidentPage";
 import ResidentForm from "./master/residents/ResidentForm";
 import ResidentTable from "./master/residents/ResidentTable";
+import TransaksiPage from "./page/master/transaksi/TransaksiPage";
 function App() {
   return (
     <BrowserRouter>
@@ -26,12 +27,19 @@ function App() {
             ></Route>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/home" element={<HomePage />}></Route>
-
+            <Route path="/units" element={<ResidentPage />}>
+              <Route path="" element={<ResidentTable />}></Route>
+              <Route path="form" element={<ResidentForm />}></Route>
+              <Route path="form/:id" element={<ResidentForm />}></Route>
+            </Route>
             <Route path="/residence" element={<ResidentPage />}>
               <Route path="" element={<ResidentTable />}></Route>
               <Route path="form" element={<ResidentForm />}></Route>
-              <Route path="table" element={<ResidentTable />}></Route>
-
+              <Route path="form/:id" element={<ResidentForm />}></Route>
+            </Route>
+            <Route path="/transaksi" element={<TransaksiPage />}>
+              <Route path="" element={<ResidentTable />}></Route>
+              <Route path="form" element={<ResidentForm />}></Route>
               <Route path="form/:id" element={<ResidentForm />}></Route>
             </Route>
           </Routes>
