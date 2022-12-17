@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
-import * as ResidentAPI from "../api/api-config";
+import * as ResidentAPI from "../API/api-config";
 
 // export const fetchResidents = createAsyncThunk(
 //   "resident/fetchResident",
