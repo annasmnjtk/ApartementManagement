@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Container } from "react-bootstrap";
 import LoginPage from "./login/LoginPage";
