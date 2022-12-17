@@ -7,6 +7,7 @@ import MainStore from "./store";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./page/HomePage";
+import UnitPage from "./page/master/units/UnitPage";
 
 function App() {
   return (
@@ -24,6 +25,16 @@ function App() {
             ></Route>
             <Route path="/" element={<LoginPage />}></Route>
             <Route path="/home" element={<HomePage />}></Route>
+            <Route path="/residence" element={<></>}>
+              <Route path="list" element={<></>}></Route>
+              <Route path="form" element={<></>}></Route>
+              <Route path="form/:id" element={<></>}></Route>
+            </Route>
+            <Route path="/unit" element={<UnitPage></UnitPage>}>
+              <Route path="list" element={<></>}></Route>
+              <Route path="form" element={<></>}></Route>
+              <Route path="form/:id" element={<></>}></Route>
+            </Route>
           </Routes>
         </Provider>
       </Container>
