@@ -1,13 +1,21 @@
-import { useEffect } from "react";
 import { Button, Spinner, Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { deleteUnit, getAllUnit } from "../../../Store/master-units-slice";
 
 export default function UnitTable() {
   const { units, loading } = useSelector((store) => store.unit);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // useEffect(() => {
   //   console.log("Table ini: ", store);
   // }, [store]);
+
+  function handleUpdate(id) {
+    const selectedUnit = units.find((u) => u.id === id);
+    navigate(`/unit/form`, { state: { isUpdate: true, data: selectedUnit } });
+  }
+
   return (
     <>
       <Table className="text-center" striped hover responsive>
@@ -73,9 +81,23 @@ export default function UnitTable() {
                       </li>
                     </ul>
                   </td>
-                  <td className="align-middle">resident</td>
+                  <td className="align-middle">{u.resident}</td>
                   <td className="align-middle">
-                    <Button>Manage</Button>
+                    <Button
+                      className="btn-warning mx-3"
+                      onClick={() => handleUpdate(u.id)}
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      className="btn-danger"
+                      onClick={() => {
+                        dispatch(deleteUnit(u.id));
+                        dispatch(getAllUnit());
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               );

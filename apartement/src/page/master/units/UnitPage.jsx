@@ -5,6 +5,7 @@ import { RouteGuard } from "../../login/LoginGuard";
 import unitSlice, { getAllUnit } from "../../../Store/master-units-slice";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import Header from "../../../layout/Header";
 
 function UnitPage() {
   const dispatch = useDispatch();
@@ -12,17 +13,21 @@ function UnitPage() {
   useEffect(() => {
     RouteGuard();
     const fetchData = async () => {
-      const response = await dispatch(getAllUnit());
-      console.log("page ini", response.payload);
+      await dispatch(getAllUnit());
     };
     fetchData();
   }, []);
 
   return (
     <>
+      <Header />
       <Button
         className="btn-success my-4"
-        onClick={() => navigate("/unit/form")}
+        onClick={() =>
+          navigate(`/unit/form`, {
+            state: { isUpdate: false },
+          })
+        }
       >
         Tambah Data
       </Button>
