@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { RESIDENT_PAGE } from "./resident-model";
-import ResidentForm from "./ResidentForm";
-import ResidentTable from "./ResidentTable";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import residentSlice, {
+  selectedResident,
+} from "../../Store/master-residents-slice";
 
 export default function ResidentPage(props) {
   const navigate = useNavigate();
+  const { selectedResident } = useSelector(
+    (store) => store[residentSlice.name]
+  );
   return (
     <Row className="d-flex justify-content-center align-items-center vh-100">
       <Col sm="8">
@@ -15,9 +18,15 @@ export default function ResidentPage(props) {
             <Card.Title as="h1" className="fs-5">
               Resident
             </Card.Title>
-            <Button as={Link} size="sm" variant="dark" to="form">
-              Add Resident
-            </Button>
+            {selectedResident ? (
+              <Button as={Link} size="sm" variant="dark" to="">
+                Return
+              </Button>
+            ) : (
+              <Button as={Link} size="sm" variant="dark" to="form">
+                Add Resident
+              </Button>
+            )}
           </Card.Header>
           <Card.Body>
             <Outlet></Outlet>

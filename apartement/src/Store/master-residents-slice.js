@@ -76,6 +76,7 @@ const residentSlice = createSlice({
         state.residents.push(action.payload);
       })
       .addCase(saveResident.rejected, (state, action) => {
+        console.log(action.payload);
         state.error = action.error.message;
       })
       .addCase(updateResident.fulfilled, (state, action) => {
