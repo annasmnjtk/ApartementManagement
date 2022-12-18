@@ -5,12 +5,15 @@ const headers = {
 };
 
 export async function getAllTransaksi() {
-  const response = await fetch(transaksiURL, {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
+  const response = await fetch(
+    "/api/transactions?_expand=resident&_expand=unit",
+    {
+      headers: {
+        ...headers,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    }
+  );
   if (response.status < 400) {
     return response.json();
   } else {

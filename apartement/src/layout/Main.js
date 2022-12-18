@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchResidents } from "../Store/master-residents-slice";
 import unitSlice, { getAllUnit } from "../Store/master-units-slice";
 import Footer from "./Footer";
 import Header from "./Header";
 
 function Main() {
   const [totalUnit, setTotalUnit] = useState(0);
-
+  const [totalResident, setTotalResident] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,6 +17,7 @@ function Main() {
       try {
         const response = await dispatch(getAllUnit());
         setTotalUnit(response.payload.length);
+        const residents = await dispatch(fetchResidents());
       } catch (_) {}
     };
     fetchData();
@@ -70,8 +72,7 @@ function Main() {
               style={{ backgroundColor: "#8ac9bd" }}
               className="text-dark"
             >
-              <p>Name: </p>
-              <p>Address: </p>
+              Jumlah resident : {totalResident}
             </Card.Body>
             <Button
               className="d-flex justify-content-center align-item-center text-white"
