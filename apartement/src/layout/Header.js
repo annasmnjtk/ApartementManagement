@@ -25,6 +25,10 @@ function Header() {
 
           <NavbarCollapse>
             <Nav>
+              <Nav.Link as={Link} to="/transaksi" className="text-white">
+                {" "}
+                Apartement Transaction
+              </Nav.Link>
               <Nav.Link as={Link} to="/unit" className="text-white">
                 {" "}
                 Apartement Unit
@@ -35,7 +39,7 @@ function Header() {
               </Nav.Link>
             </Nav>
           </NavbarCollapse>
-          <Button variant="light" as={Link} to="/">
+          <Button variant="light" as={Link} to="/login">
             Log Out
           </Button>
         </Container>

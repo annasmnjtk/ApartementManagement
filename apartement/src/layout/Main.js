@@ -1,9 +1,12 @@
 import { Button, Card, CardGroup, Col, Image, Row } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
+import { useSelector } from "react-redux";
+import residentSlice from "../Store/master-residents-slice";
 import Footer from "./Footer";
 import Header from "./Header";
 
 function Main() {
+  const { residents } = useSelector((store) => store[residentSlice.name]);
   return (
     <>
       <header>
@@ -41,8 +44,7 @@ function Main() {
               Apartement Residence
             </Card.Header>
             <Card.Body>
-              <p>Name: </p>
-              <p>Address: </p>
+              <p>Jumlah:{residents.lenght} </p>
             </Card.Body>
             <Button
               className="d-flex justify-content-center align-item-center text-white"

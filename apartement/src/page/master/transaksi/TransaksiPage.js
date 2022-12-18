@@ -1,25 +1,21 @@
-import { Table } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 export default function TransaksiPage() {
   return (
     <>
-      <Table striped hover responsive>
-        <thead className="table-dark">
-          <tr>
-            <th>#</th>
-            <th>Unit Id</th>
-            <th>Resident Id </th>
-            <th>Transaction Date</th>
-            <th>Rental Start Date</th>
-            <th>Rental End Date</th>
-            <th>Billing Date</th>
-            <th>Period</th>
-            <th>Price</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </Table>
+      <Row>
+        <Col sm="12" className="mb-3">
+          <Button as={Link} to="form">
+            Add Transaksi
+          </Button>
+          <Button as={Link} to="">
+            List Transkasi
+          </Button>
+        </Col>
+        <Col>
+          <Outlet></Outlet>
+        </Col>
+      </Row>
     </>
   );
 }

@@ -25,14 +25,21 @@ export default function ResidentTable(props) {
     <Table striped hover responsive>
       <thead className="table-dark">
         <tr>
-          <th>#</th>
-          <th>Fullname</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Marital Status</th>
-          <th>Dependents</th>
-          <th>Date of Birth</th>
-          <th>Action</th>
+          <tr>
+            <th>#</th>
+            <th>Floor</th>
+            <th>Unit</th>
+            <th>Resident</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>Transaction Price</th>
+            <th>Profit</th>
+            <th>Transaction Date</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Billing Date</th>
+            <th>Actions</th>
+          </tr>
         </tr>
       </thead>
       <tbody>

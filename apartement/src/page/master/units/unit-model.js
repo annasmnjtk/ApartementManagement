@@ -1,4 +1,7 @@
-import { nanoid } from "nanoid";
+export const UNIT_PAGE = {
+  LIST: "list",
+  FORM: "form",
+};
 
 export const ApartmentStatus = {
   AVAILABLE: "available",
@@ -38,16 +41,16 @@ export class ApartmentUnit {
     rentSchema,
     sellPrice
   ) {
-    this.id = nanoid();
-    this.unitCode = "";
-    this.floor = 0;
-    this.rooms = 1;
-    this.direction = "" || ApartmentDirection;
-    this.status = "" || ApartmentStatus;
-    this.balcony = true;
-    this.furnished = true;
-    this.rentPrice = 0;
-    this.rentSchema = "" || ApartmentRentSchema;
-    this.sellPrice = 0;
+    this.id = id;
+    this.unitCode = unitCode || "";
+    this.floor = floor || 0;
+    this.rooms = rooms || 1;
+    this.direction = direction || "" || ApartmentDirection;
+    this.status = status || "" || ApartmentStatus;
+    this.balcony = balcony || true;
+    this.furnished = furnished || true;
+    this.rentPrice = rentPrice || 0;
+    this.rentSchema = rentSchema || "" || ApartmentRentSchema;
+    this.sellPrice = sellPrice || 0;
   }
 }
