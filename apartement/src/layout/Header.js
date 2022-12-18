@@ -11,6 +11,10 @@ import NavbarCollapse from "react-bootstrap/esm/NavbarCollapse";
 import { Link } from "react-router-dom";
 
 function Header() {
+  function logout() {
+    localStorage.clear();
+    window.location.href = "/";
+  }
   return (
     <>
       {/* <Row as="header"> */}
@@ -39,7 +43,7 @@ function Header() {
               </Nav.Link>
             </Nav>
           </NavbarCollapse>
-          <Button variant="light" as={Link} to="/login">
+          <Button variant="light" onClick={logout}>
             Log Out
           </Button>
         </Container>

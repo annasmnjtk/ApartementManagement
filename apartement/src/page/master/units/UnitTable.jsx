@@ -1,15 +1,56 @@
-import { useEffect } from "react";
-import { Button, Spinner, Table } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { Button, Spinner, Table, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { deleteUnit, getAllUnit } from "../../../Store/master-units-slice";
+import { ApartmentStatus } from "./unit-model";
 
 export default function UnitTable() {
+  const [listUnit, setListUnit] = useState([]);
   const { units, loading } = useSelector((store) => store.unit);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setListUnit(units);
+  }, [units]);
 
-  // useEffect(() => {
-  //   console.log("Table ini: ", store);
-  // }, [store]);
+  function handleUpdate(id) {
+    const selectedUnit = units.find((u) => u.id === id);
+    navigate(`/unit/form`, { state: { isUpdate: true, data: selectedUnit } });
+  }
+
+  function handleFilter(data) {
+    if (data !== "null") {
+      const result = units.filter((u) => u.status.toLowerCase() === data);
+      setListUnit(result);
+    } else {
+      setListUnit(units);
+    }
+  }
+
   return (
     <>
+      <div className="d-flex">
+        <Form>
+          <Form.Group>
+            <Form.Label></Form.Label>
+            <Form.Select onChange={(e) => handleFilter(e.target.value)}>
+              <option value="null">Filter By Status</option>
+              {Object.values(ApartmentStatus).map((status, index) => {
+                return (
+                  <option
+                    key={index}
+                    className="text-capitalize"
+                    value={status}
+                  >
+                    {status}
+                  </option>
+                );
+              })}
+            </Form.Select>
+          </Form.Group>
+        </Form>
+      </div>
       <Table className="text-center" striped hover responsive>
         <thead className="table-success">
           <tr>
@@ -34,14 +75,14 @@ export default function UnitTable() {
               </td>
             </tr>
           )}
-          {Array.isArray(units) && units.length === 0 ? (
+          {Array.isArray(listUnit) && listUnit.length === 0 ? (
             <tr>
               <td colSpan={12} className="text-center fw-bold">
                 No data
               </td>
             </tr>
           ) : (
-            units.map((u, index) => {
+            listUnit.map((u, index) => {
               return (
                 <tr key={index}>
                   <td className="align-middle">{index + 1}</td>
@@ -73,9 +114,23 @@ export default function UnitTable() {
                       </li>
                     </ul>
                   </td>
-                  <td className="align-middle">resident</td>
+                  <td className="align-middle">{u.resident}</td>
                   <td className="align-middle">
-                    <Button>Manage</Button>
+                    <Button
+                      className="btn-warning mx-3"
+                      onClick={() => handleUpdate(u.id)}
+                    >
+                      Update
+                    </Button>
+                    <Button
+                      className="btn-danger"
+                      onClick={() => {
+                        dispatch(deleteUnit(u.id));
+                        dispatch(getAllUnit());
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               );

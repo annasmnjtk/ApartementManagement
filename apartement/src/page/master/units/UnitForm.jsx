@@ -1,12 +1,14 @@
-import { Fragment, useState } from "react";
-import { Button, Card, Col, Form, FormLabel, Row } from "react-bootstrap";
-
+import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
+import { Button, Col, Form, FormLabel, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
-import { saveUnit } from "../../../Store/master-units-slice";
+import { useLocation, useNavigate } from "react-router";
+import Header from "../../../layout/Header";
+import { saveUnit, updateUnit } from "../../../Store/master-units-slice";
 
 export default function UnitForm() {
   const [form, setForm] = useState({
+    id: nanoid(),
     unitCode: "",
     floor: 0,
     rooms: 0,
@@ -17,18 +19,34 @@ export default function UnitForm() {
     rentPrice: 0,
     rentSchema: "",
     sellPrice: 0,
+    resident: "",
   });
+  const location = useLocation();
+
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(saveUnit(form));
+    if (!location.state.isUpdate) {
+      dispatch(saveUnit(form));
+    } else {
+      dispatch(updateUnit(form));
+    }
     navigate("/unit");
   }
 
+  useEffect(() => {
+    if (location.state && location.state.isUpdate) {
+      const { data } = location.state;
+      setForm(data);
+    }
+  }, [location]);
+
   return (
     <>
+      <Header />
       <Row className="d-flex justify-content-center align-item-center my-5">
         <Col md="5">
           <Form onSubmit={handleSubmit}>
@@ -48,7 +66,6 @@ export default function UnitForm() {
             <Form.Group className="mb-3" controlId="">
               <Form.Label>Floor</Form.Label>
               <Form.Control
-                type="number"
                 placeholder="Floor"
                 value={form.floor}
                 onChange={(e) => setForm({ ...form, floor: e.target.value })}
@@ -58,7 +75,6 @@ export default function UnitForm() {
             <Form.Group className="mb-3" controlId="">
               <Form.Label>Rooms</Form.Label>
               <Form.Control
-                type="number"
                 placeholder="Rooms"
                 value={form.rooms}
                 onChange={(e) => setForm({ ...form, rooms: e.target.value })}
@@ -133,7 +149,7 @@ export default function UnitForm() {
               <Form.Label>Rent Price</Form.Label>
               <br />
               <Form.Control
-                placeholder="Please enter a number"
+                placeholder="IDR"
                 prefix="IDR "
                 value={form.rentPrice}
                 onChange={(e) =>
@@ -162,8 +178,7 @@ export default function UnitForm() {
               <Form.Label>Sell Price </Form.Label>
               <br />
               <Form.Control
-                type="number"
-                placeholder="Please enter a number"
+                placeholder="IDR"
                 prefix="IDR "
                 value={form.sellPrice}
                 onChange={(e) =>
@@ -171,16 +186,27 @@ export default function UnitForm() {
                 }
               />
             </Form.Group>
+            <Form.Group className="mb-3" controlId="">
+              <Form.Label>Resident</Form.Label>
+              <br />
+              <Form.Control
+                type="text"
+                placeholder="Please enter name"
+                prefix="IDR "
+                value={form.resident}
+                onChange={(e) => setForm({ ...form, resident: e.target.value })}
+              />
+            </Form.Group>
             <div className="d-flex justify-content-between">
-              <Button variant="success" type="submit">
-                Submit
-              </Button>
               <Button
-                variant="danger"
+                variant="light"
                 type="reset"
                 onClick={() => navigate("/unit")}
               >
                 Return
+              </Button>
+              <Button variant="success" type="submit">
+                Submit
               </Button>
             </div>
           </Form>
